@@ -1,0 +1,7 @@
+- hosts: kafka-hosts
+  remote_user: hadoop
+  become: yes
+  
+  roles:
+     - zookeeper
+     - kafka

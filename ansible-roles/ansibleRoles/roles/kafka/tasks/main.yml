@@ -1,0 +1,19 @@
+- name: create directory
+  file: path="/oneapm/{{item}}/kafka" state=directory mode=0755 owner=hadoop group=hadoop
+  with_items:
+    - data
+    - logs
+
+- name: fetch kafka artifact
+  unarchive: src="http://{{master_server}}/oneapm/kafka_2.11-0.8.2.2.tgz" dest={{kafka_path}} owner=hadoop group=hadoop mode=0755 copy=no
+  tags:
+    - curl
+
+- name: update configuration
+  template: src=server.properties dest={{kafka_path}}/kafka_2.11-0.8.2.2/config/server.properties owner=hadoop group=hadoop mode=0644
+
+- name: start kafka
+  shell: nohup {{kafka_path}}/kafka_2.11-0.8.2.2/bin/kafka-server-start.sh {{kafka_path}}/kafka_2.11-0.8.2.2/config/server.properties >{{kafka_path}}/kafka_2.11-0.8.2.2/logs/nohup.log 2>&1 &
+  environment:
+  - JAVA_HOME: /usr/local/jdk1.8.0_65
+

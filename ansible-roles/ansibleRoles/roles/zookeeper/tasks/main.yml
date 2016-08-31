@@ -1,0 +1,23 @@
+- name: create directory
+  file: path="/oneapm/{{item}}/zookeeper" state=directory mode=0755 owner=hadoop group=hadoop
+  with_items:
+    - data
+    - logs
+- name: get zk artifact
+  unarchive: src="http://{{master_server}}/oneapm/zookeeper-3.4.6.tar.gz" dest={{zookeeper_path}} owner=hadoop group=hadoop mode=0755 copy=no
+  tags:
+    - curl
+
+- name: update configuration
+  template: src=zoo.cfg dest={{zookeeper_path}}/zookeeper-3.4.6/conf/zoo.cfg owner=hadoop group=hadoop mode=0644
+
+- name: update configuration
+  template: src=log4j.properties dest={{zookeeper_path}}/zookeeper-3.4.6/conf/log4j.properties owner=hadoop group=hadoop mode=0644
+
+- name: set zk id
+  shell: echo "{{zk_id}}" > /oneapm/data/zookeeper/myid
+
+- name: start zk
+  command: nohup {{zookeeper_path}}/zookeeper-3.4.6/bin/zkServer.sh start {{zookeeper_path}}/zookeeper-3.4.6/conf/zoo.cfg > nohup.log 2>&1 &
+  environment:
+  - JAVA_HOME: /usr/local/jdk1.8.0_65

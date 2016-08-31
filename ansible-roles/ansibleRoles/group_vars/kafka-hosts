@@ -1,0 +1,6 @@
+master_server: 10.128.7.245
+kafka_path: /home/hadoop
+zookeeper_path: /home/hadoop 
+zookeeper_cluster: 10.128.7.240:2181,10.128.7.247:2181
+zookeeper_server1: server.1=10.128.7.240:2888:3888
+zookeeper_server2: server.2=10.128.7.247:2888:3888
