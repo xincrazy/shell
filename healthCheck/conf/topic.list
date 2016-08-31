@@ -1,0 +1,2 @@
+ip|user|passwd|hostname|groupId|zookeeper|kafkaHome|topicName|lag
+10.128.7.243|hadoop|hadoop%123|ai.dc|console-consumer-17264|10.128.7.241:2181|/usr/hdp/2.3.2.0-2950/kafka/bin|mock-topic|300

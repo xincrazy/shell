@@ -1,0 +1,3 @@
+ip|user|passwd|hostname|logDir|target|port
+10.128.7.243|hadoop|hadoop%123|ai.dc|/usr/hdp/2.3.2.0-2950/kafka/logs/server.log|kafka|6667
+10.128.7.243|hadoop|hadoop%123|ai.dc|/home/hadoop/redis.log|zookeeper|2181
